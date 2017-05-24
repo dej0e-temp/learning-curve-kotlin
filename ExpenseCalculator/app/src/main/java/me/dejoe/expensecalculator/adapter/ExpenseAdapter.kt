@@ -12,7 +12,8 @@ import me.dejoe.expensecalculator.R
 import me.dejoe.expensecalculator.model.Constants
 import me.dejoe.expensecalculator.model.ExpenseModel
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 /**
  * Created by dejoe on 5/23/17.
@@ -35,8 +36,8 @@ open class ExpenseAdapter(private val dataSet: List<ExpenseModel>, private val c
             "debit" -> "-"
             else -> ""
         }
-        holder?.itemView?.type_tv_single_row?.setTextColor(ContextCompat.getColor(context, Color().getColorForPrice(expense.expenseType)))
-        holder?.itemView?.amount_tv_single_row?.setTextColor(ContextCompat.getColor(context, Color().getColorForPrice(expense.expenseType)))
+        holder?.itemView?.type_tv_single_row?.setTextColor(ContextCompat.getColor(context, Color().getColorForExpenseType(expense.expenseType)))
+        holder?.itemView?.amount_tv_single_row?.setTextColor(ContextCompat.getColor(context, Color().getColorForExpenseType(expense.expenseType)))
     }
 
     override fun getItemCount(): Int {
@@ -48,13 +49,11 @@ open class ExpenseAdapter(private val dataSet: List<ExpenseModel>, private val c
         return ExpenseViewholder(view)
     }
 
-    class ExpenseViewholder(view: View) : RecyclerView.ViewHolder(view) {
-
-    }
+    class ExpenseViewholder(view: View) : RecyclerView.ViewHolder(view)
 }
 
 
-fun Color.getColorForPrice(expenseType: String): Int {
+fun Color.getColorForExpenseType(expenseType: String): Int {
     when (expenseType) {
         "credit" -> return R.color.credit_color
         "debit" -> return R.color.debit_color
